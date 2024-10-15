@@ -3,6 +3,7 @@
 import { PlusIcon, MinusIcon } from "@/assets/icons";
 import { useState } from "react";
 import clsx from "clsx";
+import { motion, AnimatePresence } from "framer-motion";
 
 const items = [
   {
@@ -39,7 +40,33 @@ const AccordianItem = ({question, answer}: {question: string, answer: string}) =
     }
     
   </div>
-  <div className={clsx("mt-4",{ hidden: !isOpen, "": isOpen === true })}>{answer}</div>
+  <AnimatePresence>
+    {
+      isOpen && (
+        <motion.div 
+          
+          initial={{
+            opacity: 0,
+            height: 0,
+            marginTop: 0,
+          }}
+          animate={{
+            opacity:1,
+            height: "auto",
+            marginTop: "16px",
+          }}
+          exit={{
+            opacity: 0,
+            height: 0,
+            marginTop: 0,
+          }}
+        >
+          {answer}
+        </motion.div>
+      )
+    }
+  </AnimatePresence>
+  
 </div>;
 }
 
